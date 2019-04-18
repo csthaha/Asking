@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>懒加载图片</title>
+</head>
+
+<body>
+    <!-- 网页在渲染的时候，http请求数量 
+    chrome 性能最好，同时并发的请求十几个 
+    将图片下载，放到dom ready 事件之后 将有效提升网页打开速度
+    占位图片，
+    优化前 n 张照片 url 不一样 http 请求数是 n 
+    优化后 图片上的 http 数量 只有 1 
+    如果url 一样，不会重复发送-->
+
+    <img class="pic1"
+        src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1555264864967&di=139b5917cf49b630f9e8eca94bbe06fc&imgtype=0&src=http%3A%2F%2Fgss0.baidu.com%2F9fo3dSag_xI4khGko9WTAnF6hhy%2Fzhidao%2Fpic%2Fitem%2F77c6a7efce1b9d168781be0ff0deb48f8c54641d.jpg"
+        origin_src="http://img3.imgtn.bdimg.com/it/u=1001789929,1653015578&fm=26&gp=0.jpg" alt="">
+    <img class=""
+        src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1555264864967&di=139b5917cf49b630f9e8eca94bbe06fc&imgtype=0&src=http%3A%2F%2Fgss0.baidu.com%2F9fo3dSag_xI4khGko9WTAnF6hhy%2Fzhidao%2Fpic%2Fitem%2F77c6a7efce1b9d168781be0ff0deb48f8c54641d.jpg"
+        origin_src="http://img2.imgtn.bdimg.com/it/u=2335703877,2209009335&fm=11&gp=0.jpg" alt="">
+    <img class=""
+        src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1555264864967&di=139b5917cf49b630f9e8eca94bbe06fc&imgtype=0&src=http%3A%2F%2Fgss0.baidu.com%2F9fo3dSag_xI4khGko9WTAnF6hhy%2Fzhidao%2Fpic%2Fitem%2F77c6a7efce1b9d168781be0ff0deb48f8c54641d.jpg"
+        origin_src="http://img2.imgtn.bdimg.com/it/u=2335703877,2209009335&fm=11&gp=0.jpg" alt="">
+    <img class=""
+        src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1555264864967&di=139b5917cf49b630f9e8eca94bbe06fc&imgtype=0&src=http%3A%2F%2Fgss0.baidu.com%2F9fo3dSag_xI4khGko9WTAnF6hhy%2Fzhidao%2Fpic%2Fitem%2F77c6a7efce1b9d168781be0ff0deb48f8c54641d.jpg"
+        origin_src="http://img0.imgtn.bdimg.com/it/u=2474540691,1918474201&fm=26&gp=0.jpg" alt="">
+
+    <script>
+        // 已经是用户看到了网页了， dom ready （）
+        // 优化图片下载，将其退后 下载，
+        window.onload = function () {
+            // 在页面打开后，重新下载图片
+            const img = document.querySelector('.pic1');
+            // origin_src 自定义属性
+            const url = img.getAttribute('origin_src');
+            console.log(url);
+            // img.src = url;
+            // img.setAttribute('src',url);
+
+            // 图片不要直接url 设置过去， 也是要加载好多
+            const oImg = document.createElement('img');
+            oImg.style.display = 'none  ';
+            document.body.appendChild(oImg);
+            oImg.onload = function () {
+                // 幕后工作者 已经下载了图片 
+                // url一旦下载，在浏览器缓存（静态文件）这个文件，
+                img.src = url;
+            }
+            // 图片的下载是异步的，图片有大小，
+            oImg.src = url;
+
+        }
+    </script>
+</body>
+
+</html>

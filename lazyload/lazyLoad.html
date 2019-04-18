@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>懒加载图片</title>
+</head>
+
+<body>
+    <!-- 图片懒加载可以提升用户体验，为了提升网页的加载速度，很多时候我们将网页中没有出现的图片内容先不进行 -->
+    <!-- 加载，等到手动滑动鼠标滚动滚动到可视区域后再去加载  ，
+        这样对网页的加载性会由很大的提升，就像淘宝页面 -->
+    <img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=4286713628,4041715259&fm=27&gp=0.jpg"
+        class="pic1"
+        origin_src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2207956678,674666922&fm=27&gp=0.jpg"
+        alt="">
+    <img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=4286713628,4041715259&fm=27&gp=0.jpg"
+        class="pic1"
+        origin_src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3014328911,2475749897&fm=27&gp=0.jpg"
+        alt="">
+    <img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=4286713628,4041715259&fm=27&gp=0.jpg"
+        class="pic1" origin_src="http://img3.imgtn.bdimg.com/it/u=539494692,2718924855&fm=26&gp=0.jpg" alt="">
+    <img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=4286713628,4041715259&fm=27&gp=0.jpg"
+        class="pic1" origin_src="http://img2.imgtn.bdimg.com/it/u=1207527160,560247538&fm=11&gp=0.jpg" alt="">
+
+    <script>
+        const imgs = document.querySelectorAll('.pic1');
+        console.log(imgs);
+        for (let n of imgs) {
+            var url = n.getAttribute('origin_src');
+
+            var oImg = document.createElement('img');
+            oImg.style.display = 'none';
+            document.body.appendChild(oImg);
+
+            // oImg.onload = function(){
+            //     n.src = url;
+            // }
+
+            n.src = url;
+            // console.log(n.src);
+            oImg.src = url;
+            console.log(oImg.src)
+            
+            
+        }
+
+        // 图片不要直接设置过去，也是需要加载好久好多，所以我们就在后台先下载好图片
+        // url 一旦下载，在浏览器缓存这个静态文件
+        //图片的下载是异步的，图片有大小
+
+
+    </script>
+</body>
+
+</html>
