@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- <script>
+        var user = 'cst'
+        let a = {
+            user: '蜗牛',
+            fn: function(e,m) {
+                console.log(this.user)  //当前 this 指向 window
+                console.log(e + m)
+            }
+        }
+        let b = a.fn
+        b() // cst
+        b.call(a, 2)  // 蜗牛
+        b.apply(a,[2,4])  // 蜗牛
+        // call apply 的区别 ，传参不同，call 依次传入，apply 需要 数组
+        let c = b.bind(a,3)  // bind 的方法返回的是一个 函数类型，所以调用的时候必须以一个函数去调用
+        c(5,2)  // 8 就进原则
+        a.fn()  // 
+    </script> -->
+
+    <script>
+        //call() 原理
+        Function.prototype.call = function () {
+            let [thisArg, ...args] = [...arguments]   // thisArg 作用域要去的地方
+            if(!thisArg) {
+                thisArg = typeof window === 'undefined' ? global : window
+            }
+            // this 的指向是当前函数 func
+            thisArg.func = this
+            //执行我们的函数
+            let result = thisArg.func(...args)
+            // thisArg 上并没有func 属性，所以得删除
+            delete thisArg.func
+            return result
+        }
+    </script>
+</body>
+</html>

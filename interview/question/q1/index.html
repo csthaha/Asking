@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- new 方法的原理 -->
+    <script>
+        let _new = function () {
+            let target = {}
+            // 首先创建一个对象
+            let [constructor, ...args] = [...arguments] 
+            //将参数解构为，第一个参数为 constructor，和剩余的参数(定义参数)
+            target.__proto__ = constructor.prototype    // 只有function才有 显示原型(prototype)
+            //执行原型连接
+            let result = constructor.apply(target,args)
+            // 执行构造函数，把函数的属性或者方法添加到 创建的空对象上
+            if(result && typeof(result) === 'object' || typeof(result) === 'function'){
+                return result
+            }
+            return target;
+        }
+    </script>
+</body>
+</html>
