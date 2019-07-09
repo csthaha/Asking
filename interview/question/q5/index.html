@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 数组去重 -->
+    <!-- [1,2,3,2,4,3]  uniq-->
+    <script>
+        function uniq1(arr) {
+            return [...new Set(arr)]
+        }
+
+        function uniq2(arr) {
+            let result = []
+            for (let i = 0; i < arr.length; i++) {
+                if (result.indexOf(arr[i]) === -1) {  // 判断是否有下标
+                    result.push(arr[i])
+                }
+            }
+            return result
+        }
+
+        function uniq3(arr) { //includes
+            let result = []
+            for (let i = 0; i < arr.length; i++) {
+                if (!result.includes(arr[i])) {  // 如果没有的话
+                    result.push(arr[i])
+                }
+            }
+            return result
+        }
+
+        function uniq4(arr) { // map
+            let map = new Map();
+            let result = new Array();
+            for (let i = 0; i < arr.length; i++) {
+               if(map.has(arr[i])) {
+                    map.set(arr[i], true)
+               } else {
+                   map.set(arr[i], false)
+                   result.push(arr[i])
+               }
+            }
+            return result
+        }
+
+        function uniq5(arr) {
+            return arr.reduce((prev, cur) => prev.includes(cur) ? prev : [...prev, cur] , [] )
+        }
+
+        console.log('uniq1:', uniq1([1, 2, 3, 2, 4, 3]))
+        console.log('uniq2:', uniq2([1, 2, 3, 2, 4, 3]))
+        console.log('uniq3:', uniq3([1, 2, 3, 2, 4, 3]))
+        console.log('uniq4:', uniq4([1, 2, 3, 2, 4, 3]))
+        console.log('uniq5:', uniq5([1]))
+    </script>
+</body>
+
+</html>
